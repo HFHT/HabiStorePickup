@@ -1,0 +1,12 @@
+.mantine-Button-root {
+    padding-inline: unset !important;
+}
+.mantine-Card-root {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+}
+.mantine-AppShell-main {
+    background-image: url(https://hfhtdev.blob.core.windows.net/production/habitstore-interior-store.jpg);
+    background-size: cover;
+    background-position: center;
+}

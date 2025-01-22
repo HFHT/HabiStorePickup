@@ -1,0 +1,18 @@
+.google-container {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    gap: 10px;
+  }
+  
+  .google-result {
+    height: 1rem;
+    padding: 8px;
+  }
+  
+  @media screen and (max-device-width: 31.25em) {
+    .google-container {
+      width: 20em;
+    }
+  }

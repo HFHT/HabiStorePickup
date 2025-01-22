@@ -1,0 +1,116 @@
+html,
+body {
+    overflow: hidden;
+}
+
+.headlogo {
+    display: flex;
+    flex-direction: row;
+    margin: 4px 8px 0 8px;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.show {
+    display: unset;
+}
+
+.hide {
+    display: none;
+}
+
+.maplink {
+    cursor: pointer;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.a_link {
+    color: -webkit-link;
+    cursor: pointer;
+    display: flex;
+}
+
+.a_link:active {
+    color: -webkit-activeLink;
+}
+
+.a_link:hover {
+    scale: 120%;
+}
+
+.edit-btn {
+    height: 2rem;
+    width: 2rem;
+}
+.edit-btn .mantine-Button-section {
+    margin: 0;
+}
+.address-label {
+    font-size: var(--mantine-font-size-sm);
+}
+.pickphoneinput {
+    --input-padding: calc(var(--input-height) / 3);
+    --input-height: calc(2.25rem* var(--mantine-scale));
+    font-size: var(--mantine-font-size-sm);
+    color: var(--input-color);
+    width: 100%;
+    height: var(--input-height);
+    min-height: var(--input-height);
+    line-height: calc(var(--input-height) - calc(0.125rem* var(--mantine-scale)));
+    border-radius: var(--mantine-radius-default);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--mantine-color-dark-4);
+    appearance: none;
+    background-color: var(--mantine-color-dark-6);
+    padding-inline-start: calc(var(--input-padding)/2);
+    padding-inline-end: calc(var(--input-padding)/2);
+    cursor: pointer;
+    font-family: var(--input-font-family, var(--mantine-font-family));
+}
+
+.pickphoneinput:focus {
+    border-color: var(--mantine-primary-color-filled);
+    outline: none;
+}
+
+.special-label {
+    font-size: var(--mantine-font-size-sm);
+    /* display: none; */
+}
+
+.iti__tel-input {
+    width: 12rem;
+    min-height: var(--input-scale);
+    line-height: calc(var(--input-scale) - calc(0.125rem* var(--mantine-scale)));
+    border-radius: var(--mantine-radius-default);
+    border: calc(0.0625rem* var(--mantine-scale)) solid var(--input-bd);
+    background-color: var(--input-color-bg);
+    font-size: var(--font-size);
+}
+
+.iti__selected-dial-code {
+    font-size: var(--mantine-font-size-xs, var(--mantine-font-size-xs, var(--mantine-font-size-sm)));
+}
+
+.intl-phone-error input {
+    border-color: var(--mantine-color-error);
+}
+
+.intl-phone-error p {
+    margin: 0;
+    color: var(--mantine-color-error);
+    font-size: var(--input-error-size, calc(var(--mantine-font-size-sm) - calc(0.125rem* var(--mantine-scale))));
+}
+
+@media (prefers-color-scheme: light) {
+    .pickphoneinput {
+        border-color: var(--mantine-color-gray-4);
+        background-color: var(--mantine-color-white);
+    }
+}
