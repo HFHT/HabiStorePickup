@@ -27,13 +27,14 @@ export const MainContext = createContext<MainContexType>({
     zipAvailability: undefined,
     dispatch: () => { },
     getZipCodes: () => { },
-    setIsBusy: () => { }
+    setIsBusy: () => { },
+    setShowExitPrompt: () => { }
 })
 
 export const MainContextProvider = (props: MainContextProviderType) => {
     const [zipAvailability, setZipAvailability] = useState<ZipAvailability[] | undefined>()
     const [notAcceptedItems, setNotAcceptedItems] = useState<string[]>([])
-    const [templates, setTemplates] = useState<{_id: string, template: string}[]>([])
+    const [templates, setTemplates] = useState<{ _id: string, template: string, jsonValue: any }[]>([])
     const [isBusy, setIsBusy] = useState<boolean>(false)
     const [state, dispatch] = useReducer(reducer, initialState)
     const [showExitPrompt, setShowExitPrompt] = useExitPrompt(false)
@@ -101,6 +102,7 @@ export const MainContextProvider = (props: MainContextProviderType) => {
             templates: templates,
             isBusy: isBusy,
             setIsBusy: setIsBusy,
+            setShowExitPrompt: setShowExitPrompt,
             getZipCodes: getZipCodes
         }}>
             {props.children}
@@ -164,13 +166,14 @@ export type MainContexType = {
     isBusy: boolean,
     mode: 'pickup' | 'returning',
     notAcceptedItems: string[],
-    templates: {_id: string, template: string}[] | undefined,
+    templates: { _id: string, template: string, jsonValue: any }[] | undefined,
     sasToken: SasTokenType | undefined,
     uuid: string | null,
     zipAvailability: ZipAvailability[] | undefined,
     dispatch: Function,
     getZipCodes: Function,
     setIsBusy: Function,
+    setShowExitPrompt: Function
 }
 
 export type MainContextActions = 'reset' | 'back' | 'next' | 'saveForm' | 'setDate' | 'setDonation' | 'setDonor' | 'setDonorPlace' | 'setOnline' | 'setPhone' | 'setPhotos' | 'setPin' | 'setSettings' | 'setView' | 'setZipCode'

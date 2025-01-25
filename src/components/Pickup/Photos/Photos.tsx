@@ -2,18 +2,20 @@ import { ImageCarousel } from "@/components"
 import { Navigation } from "@/components/Controls"
 import { useImages } from "@/components/ImageCarousel"
 import { MainContext } from "@/contexts"
+import { useTheme } from "@/hooks"
 import { Image, Modal, Stack, Title } from "@mantine/core"
 import { useContext } from "react"
 
 export function Photos({ open }: { open: boolean }) {
   const { dispatch } = useContext(MainContext)
-  const { imageChanged, imageList, imageAction, imagePreview, setImageList, isBusy: isImageBusy } = useImages()
+  const { mobile } = useTheme()
+  const { imageList, imageAction, imagePreview } = useImages()
 
   if (!open) return <></>
 
   return (
     <>
-      <Stack gap='xs' p='xs'>
+      <Stack gap='xs' p='xs' style={{ minWidth: mobile ? document.documentElement.clientWidth-20 : document.documentElement.clientWidth/2 }}>
         <Title size={22} order={2}>Upload photos</Title>
         <ImageCarousel
           mt='xs'

@@ -1,4 +1,5 @@
 export * from './dateUtilities'
 export * from './formatPhoneNumber'
+export * from './stringUtilities'
 export * from './uniqueKey'
 export * from './validators'

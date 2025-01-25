@@ -10,9 +10,9 @@ export function AcceptableItems({ open }: { open: boolean }) {
   const { mobile } = useTheme()
   if (!open) return <></>
   return (
-    <Stack gap='xs' pt={6} pb={6} pl={'lg'} pr={'lg'}>
+    <Stack gap='xs' pt={6} pb={6} pl={'lg'} pr={'lg'} style={{ width: mobile ? '20rem' : '' }}>
       <Title size={22} order={2} autoFocus
-        // aria-label={`We do not accept the following items: ${notAcceptedItems.join(', ')}`}
+      // aria-label={`We do not accept the following items: ${notAcceptedItems.join(', ')}`}
       >Acceptable Items</Title>
       <Text>We do <u>not</u> accept:</Text>
       <ScrollArea h={mobile ? document.documentElement.clientHeight - 260 : ''} type="auto" mb='sm' >

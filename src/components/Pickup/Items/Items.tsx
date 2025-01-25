@@ -51,11 +51,13 @@ export function Items({ open }: { open: boolean }) {
                   <TextInput size='xs' value={si.prod} onChange={(e) => console.log(e)} />
                 </Grid.Col>
                 <Grid.Col span={2} pt={3} pb={3}>
-                  <Button variant='subtle' color='gray' aria-label={`Remove ${si.prod} from list.`}
-                    leftSection={<IconTrash />}
-                    onClick={() => { removeFromList(idx) }}
-                  >
-                  </Button>
+                  <Tooltip label='Remove from list.'>
+                    <Button variant='subtle' color='gray' title='Remove from list.' aria-label={`Remove ${si.prod} from list.`}
+                      leftSection={<IconTrash />}
+                      onClick={() => { removeFromList(idx) }}
+                    >
+                    </Button>
+                  </Tooltip>
                 </Grid.Col>
               </Grid>
             ))
@@ -72,6 +74,7 @@ export function Items({ open }: { open: boolean }) {
             <Tooltip label='Add item.'>
               <Button variant='subtle' color='gray' disabled={newItem.qty === 0 || newItem.prod.length < 3}
                 aria-label='Add item to list.'
+                title='Add item.'
                 leftSection={<IconCirclePlus />}
                 onClick={() => { addToList({ qty: newItem.qty, prod: newItem.prod }) }}
               >

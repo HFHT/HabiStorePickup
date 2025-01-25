@@ -2,6 +2,8 @@ import { GoogleAutocomplete } from "@/components"
 import { Navigation } from "@/components/Controls"
 import { MainContext } from "@/contexts"
 import { useConstituent, useTheme } from "@/hooks"
+import { schedulerAPI } from "@/services"
+import { theDate, uniqueKey } from "@/utils"
 import { Button, Grid, Modal, Stack, Text, Textarea, TextInput, Title } from "@mantine/core"
 import { IconEdit } from "@tabler/icons-react"
 import { useContext, useState } from "react"
@@ -12,8 +14,9 @@ export function ContactInfo({ open }: { open: boolean }) {
   const [advance, setAdvance] = useState(false)
   if (!open) return <></>
 
-  const mapFields = (formValues: any) => {
+  const mapFields = (formValues: any, donationId: number) => {
     return {
+      anonymous: false,
       name: {
         first: formValues.firstName,
         last: formValues.lastName,
@@ -22,8 +25,26 @@ export function ContactInfo({ open }: { open: boolean }) {
       phone: formValues.phone,
       email: formValues.email,
       zip: formValues.zip,
-      place: {...state.donor.donor.place, address2: formValues.address2},
-      note: formValues.note
+      place: { ...state.donor.donor.place, address2: formValues.address2 },
+      donations: [donationId, ...state.donor.donor.donations]
+    }
+  }
+  const mapDonation = (donation: any, photos: any, formValues: any, donationId: number) => {
+    return {
+      _id: donationId,
+      _donorKey: formValues.phone,
+      date: theDate(),
+      driverNote: '',
+      note: formValues.note,
+      source: 'donor',
+      type: 'pickup',
+      delivery: {items: [], imgs: []},
+      pickup: {
+        items: [...donation],
+        imgs: [...photos]
+      },
+      cancelled: false,
+      completed: false
     }
   }
 
@@ -113,11 +134,27 @@ export function ContactInfo({ open }: { open: boolean }) {
       </form>
       <Button disabled={!state.donor}
         onClick={() => {
-          dispatch({ type: 'saveForm', payload: mapFields(form.getValues()) })
-          setAdvance(true)
+          const donationId = uniqueKey()
+          dispatch({ type: 'saveForm', payload: { ...mapFields(form.getValues(), donationId), note: form.getValues().note } })
+          schedulerAPI({
+            _id: form.getValues().phone!,
+            appt_fk: undefined,
+            cmds: [
+              {
+                cmd: 'addPickup',
+                jsonValue: {
+                  constituent: mapFields(form.getValues(), donationId),
+                  donation: mapDonation(state.donation.map((dm) => ({ qty: dm.qty, prod: dm.prod })), state.photos.map((pm) => pm.uniqueName), form.getValues(), donationId),
+                  schedDate: state!.selected!.date,
+                  source: 'donor'
+                }
+              }
+            ]
+          })
+          // setAdvance(true)
         }} >
         Submit
-      </Button>
+      </Button >
       <Modal opened={addressOpen} size={mobile ? 'md' : 'lg'} withCloseButton title="Address Lookup" onClose={() => {
         setAddressOpen(false)
         console.log('close!')

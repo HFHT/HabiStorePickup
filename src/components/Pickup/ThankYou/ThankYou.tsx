@@ -4,13 +4,16 @@ import { usePrint_Email, useTheme } from "@/hooks"
 import { formatPhoneNumber, uniqueKey } from "@/utils"
 import { Anchor, Button, Divider, Flex, Group, Image, SimpleGrid, Stack, Text, Title } from "@mantine/core"
 import { IconPrinter, IconSend } from "@tabler/icons-react"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 
-const CALENDAR_DESCRIPTION = 'The HabiStore scheduler will call one or two days in advance to confirm the apointment and to narrow down the time of the pickup. If you have any questions or need to change the apointment, please call 520-230-5323.'
 export function ThankYou({ open }: { open: boolean }) {
     const { mobile } = useTheme()
     const { email, print, isBusy } = usePrint_Email()
-    const { state, uuid, templates } = useContext(MainContext)
+    const { state, uuid, templates, setShowExitPrompt } = useContext(MainContext)
+    useEffect(() => {
+        setShowExitPrompt(false)
+    }, [])
+
     if (!open || !state || !state.selected || !state.donation || !state.donor || !state.donor.donor) return <></>
     const templateFields = (type: 'print' | 'email') => {
         const address2 = () => {
@@ -96,7 +99,7 @@ export function ThankYou({ open }: { open: boolean }) {
                     }
                 </Group>
                 <Divider mt='lg' mb='lg' />
-                <AddToCalendar name={'HabiStore donation pickup'} buttonsList={!mobile} description={CALENDAR_DESCRIPTION} date={state.selected.date} />
+                <AddToCalendar name={'HabiStore donation pickup'} buttonsList={!mobile} description={templates && templates.find((tf) => tf._id === 'storePickupIcalNote')} date={state.selected.date} />
             </Stack >
 
         </>

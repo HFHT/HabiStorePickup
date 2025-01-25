@@ -12,7 +12,7 @@ export type ItemListType = {
     prod: string
 }
 export function useOpenAI() {
-    const {isBusy, setIsBusy} = useContext(MainContext)
+    const { isBusy, setIsBusy, templates } = useContext(MainContext)
     const [itemList, setItemList] = useState<ItemListType[] | undefined>(undefined);
     // const [isBusy, setIsBusy] = useState(false)
     const [haveResponse, { open: openDation, close: closeDonation, toggle: toggleDonation }] = useDisclosure(false);
@@ -28,10 +28,17 @@ export function useOpenAI() {
     const getOpenAI = async (userData: any) => {
         // if (!chatGPT) return;
         // console.log(userData)
-        if (!userData) return;
+        if (!userData || !templates) return;
+        let template = templates.find((tf) => tf._id === 'storeOpenAIItemPrompt')
+        if (!template) return
+        let jsonString = JSON.stringify(template.jsonValue)
+        console.log(jsonString)
+        jsonString = jsonString.replace(new RegExp('{ITEMS}', 'g'), userData);
+        console.log(JSON.parse(jsonString))
         setIsBusy(true)
         try {
-            setItemList((await getChatGPT(CONST_GPT_PROMPT.replace(/{items}/g, userData))))
+            // setItemList((await getChatGPT(CONST_GPT_PROMPT.replace(/{items}/g, userData))))
+            setItemList((await getChatGPT(JSON.parse(jsonString))))
         }
         catch (error) { console.log(error, 'Read of ChatGPT failed: ' + error) }
         setIsBusy(false)

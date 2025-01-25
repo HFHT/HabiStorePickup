@@ -101,10 +101,9 @@ export async function getZipAvailability(request: HttpRequest, context: Invocati
         zipAvailability = [...zipAvailability, { zip: k, notes: routes.notes[k] !== undefined ? routes.notes[k] : '', dates: [...tdays.sort((ts1: { date: string }, ts2: { date: string }) => (ts1.date > ts2.date ? 1 : -1))] }]
     })
     const items = await client.db('Scheduler').collection('Settings').find({ _id: 'notAccepted' }).toArray()
-    const templates = await client.db('Habitat').collection('Templates').find({ _id: { $in: ['storePickupConfirmation', 'storePickupEmailConfirmation'] } }).toArray()
+    const templates = await client.db('Habitat').collection('Templates').find({ _id: { $in: ['storePickupConfirmation', 'storePickupEmailConfirmation', 'storePickupIcalNote', 'storeOpenAIItemPrompt'] } }).toArray()
     client.close()
     return { body: JSON.stringify({ zip: [...zipAvailability], notAccepted: [...items[0].items], templates: [...templates] }) }
-
 };
 
 app.http('getZipAvailability', {

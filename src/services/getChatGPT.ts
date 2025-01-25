@@ -1,3 +1,4 @@
+import { truncateString } from "@/utils"
 import { fetchJson } from "."
 
 type OpenAiResponseType = {
@@ -17,9 +18,9 @@ export type OpenAiChoicesType = {
     index: number
     logprobes: null
     text: string
+    message: { role: string, content: string, refusal: any }
 }
 export const getChatGPT = async (userData: string) => {
-    // console.log(userData)
     if (!userData) return;
     const headers = new Headers();
 
@@ -27,24 +28,25 @@ export const getChatGPT = async (userData: string) => {
         method: "POST",
         headers: headers,
         body: JSON.stringify({
-            model: import.meta.env.VITE_GPT_MODEL,
-            prompt: userData,
-            temperature: 0.2,
-            max_tokens: 600
+            jsonValue: userData,
         })
     };
     try {
-        const response: OpenAiResponseType = await fetchJson(`${import.meta.env.VITE_PICKUP_URL}getOpenAI`, options)
+        const response: OpenAiResponseType = await fetchJson(`${import.meta.env.VITE_PICKUP_URL}getOpenAI4`, options)
+        let initVal = [{ qty: 0, prod: '', category: '' }]
         console.log('ChatGPT-fetchJson', response)
-        if (response.choices.length === 0) return undefined
-        let retVal = undefined
+        if (response.choices.length === 0) return [...initVal]
         try {
-            retVal = JSON.parse(response.choices[0].text)
+            let retObj = response.choices[0].message.content
+            if (retObj) {
+                let retVal = JSON.parse(retObj)
+                if (retVal && retVal.products) return retVal.products
+            }
         } catch (e) {
-            console.log(response.choices[0].text)
+            console.log(response)
             console.log(e)
         }
-        return retVal
+        return [...initVal]
     }
     catch (error) {
         console.log(error);
