@@ -1,7 +1,6 @@
 
-Need to set uuid for new donors and make it part of the save
-Finish off Email 
-Finish off Print
+Donation Pickup - 
+5) also post to the old database just in case we have to go back.
 
 Add a 'track' mode:
 - open up to the truck location page
@@ -12,8 +11,6 @@ side bar navigation / hamburger
 - New donation
 - Contact the Scheduler
 - See truck location
-
-
 
 # Mantine Vite template
 

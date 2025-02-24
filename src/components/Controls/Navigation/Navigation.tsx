@@ -9,9 +9,10 @@ interface NavigationInterface {
     enable?: boolean
     autoAdvance?: boolean
     autoFocus?: boolean
-    callBack?: () => void
+    validate?: boolean
+    callBack?: Function
 }
-export function Navigation({ first = false, last = false, enable = false, autoAdvance = false, autoFocus = false, callBack = () => { } }: NavigationInterface) {
+export function Navigation({ first = false, last = false, enable = false, autoAdvance = false, autoFocus = false, validate = false, callBack = () => { } }: NavigationInterface) {
     const { dispatch } = useContext(MainContext)
     useEffect(() => {
         if (autoAdvance) {
@@ -37,8 +38,14 @@ export function Navigation({ first = false, last = false, enable = false, autoAd
                 tabIndex={last ? -1 : 0}
                 autoFocus={autoFocus}
                 onClick={() => {
-                    callBack()
-                    dispatch({ type: 'next' })
+                    if (validate) {
+                        let isValid = callBack()
+                        console.log(isValid)
+                        isValid && dispatch({ type: 'next' })
+                    } else {
+                        callBack()
+                        dispatch({ type: 'next' })
+                    }
                 }}
                 disabled={!enable}>
                 Next

@@ -2,13 +2,21 @@ import PhoneInput from "react-phone-input-2";
 import { Box, Button, Flex, Tooltip } from "@mantine/core";
 import { usePhoneLookup } from "./usePhoneLookup";
 import { IconRefresh } from "@tabler/icons-react";
+import { useEffect } from "react";
 interface ShopifyPhoneInterface {
     open?: boolean
     callBack?: (e: any) => void
     disabled?: boolean
 }
 export function PhoneLookup({ open = true, disabled = false, callBack = () => { } }: ShopifyPhoneInterface) {
-    const { phone, setPhone, dispatch } = usePhoneLookup()
+    const { phone, setPhone, dispatch, constituent } = usePhoneLookup()
+    useEffect(() => {
+        console.log('PhoneLookup-constituent-useEffect', constituent)
+        if (!constituent) return
+        if (constituent.donor._id === '') {
+            callBack(constituent)
+        }
+    }, [constituent])
 
     if (!open) return <Box pos='relative'></Box>
     return (

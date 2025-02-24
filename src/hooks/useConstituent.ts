@@ -8,6 +8,12 @@ export function useConstituent() {
     const [addressOpen, setAddressOpen] = useState(false)
     const initialValues: FormValuesType = { firstName: '', lastName: '', phone: '+1', company: '', email: '', zip: '', address: '', address2: '', note: '' }
 
+    const whichAddress = () => {
+        console.log(state.place, state.donor.donor)
+        if (state.place) return state.place.addr
+        return state.donor.donor.place.addr || ''
+    }
+
     useEffect(() => {
         if (!state) return
         let theValues = { ...initialValues }
@@ -19,15 +25,15 @@ export function useConstituent() {
                 company: state.donor.donor.name.company || '',
                 email: state.donor.donor.email || '',
                 zip: state.donor.donor.zip || '',
-                address: state.donor.donor.place.addr || '',
+                address: whichAddress(),
                 address2: state.donor.donor.place.address2 || '',
                 note: state.donor.donor.note || ''
             }
         } else {
-            theValues = {...theValues, phone: state.phone || '+1'}
+            theValues = { ...theValues, phone: state.phone || '+1' }
         }
         form.setValues({ ...theValues })
-    }, [state.donor])
+    }, [state.donor, state.place])
 
     const form = useForm({
         mode: 'uncontrolled',

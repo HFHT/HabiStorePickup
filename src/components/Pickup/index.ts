@@ -1,4 +1,5 @@
 export * from './AcceptableItems/AcceptableItems'
+export * from './Confirmation/Confirmation'
 export * from './ConstituentLookup/ConstituentLookup'
 export * from './ContactInfo/ContactInfo'
 export * from './Items/Items'

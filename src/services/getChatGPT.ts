@@ -1,4 +1,3 @@
-import { truncateString } from "@/utils"
 import { fetchJson } from "."
 
 type OpenAiResponseType = {

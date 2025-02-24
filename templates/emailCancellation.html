@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        @media print {
+            .break_page {
+                page-break-before: always;
+            }
+        }
+
+        @page {
+            size: A6 portrait;
+            margin-top: 3mm;
+            margin-left: 1mm;
+            margin-right: 1mm;
+        }
+
+        body {
+            background: #FFF;
+            color: #000;
+            font-size: 10pt;
+            padding: 0;
+        }
+
+        .header {
+            display: grid;
+            grid-template-columns: 10fr 1fr 10fr;
+        }
+
+        .header_habitat {
+            display: grid;
+            grid-template-rows: min-content;
+            margin: 0;
+        }
+
+        .header_habitat p {
+            margin-left: 1mm;
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 8pt;
+        }
+
+        .hotline {
+            margin-top: 0;
+            margin-bottom: 0;
+            font-size: 9pt;
+            margin-left: 0;
+        }
+
+        .address {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            margin: 0;
+        }
+
+        .donations {
+            display: grid;
+            grid-template-columns: 1fr 8fr;
+            grid-template-rows: repeat(11, 1fr);
+            border-style: solid;
+            border-width: thin;
+        }
+
+        .donations div {
+            padding: 1mm;
+            font-size: 8pt;
+        }
+
+        .border_right {
+            border-right-style: solid;
+            border-right-width: thin;
+        }
+
+        .border_bottom {
+            border-bottom-style: solid;
+            border-bottom-width: thin;
+        }
+
+        .font_xs {
+            margin: 0;
+            font-size: 7pt;
+        }
+
+        .font_sm {
+            margin: 0;
+            font-size: 8pt;
+        }
+
+        .font_lg {
+            margin: 0;
+            font-size: 10pt;
+        }
+
+        .mt_xl {
+            margin-top: 5mm;
+            margin-bottom: 0;
+        }
+
+        .mt_sm {
+            margin-top: 2mm;
+            margin-bottom: 0;
+        }
+
+        .mt_xs {
+            margin-top: 1mm;
+            margin-bottom: 0;
+        }
+
+        .mt_xxs {
+            margin-top: 2px !important;
+            margin-bottom: 0;
+        }
+
+        .ml_sm {
+            margin-left: 2mm;
+        }
+
+        .centered {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <table>
+        <tr>
+            <td>
+                <img src="https://hfhtdev.blob.core.windows.net/production/HabiStore_logo_black_with_green.webp"
+                    width="150" title="na" />
+                <p>A 501(c)3 Arizona nonprofit Corporation</p>
+                <p>Federal ID #94-2725100</p>
+
+            </td>
+            <td>
+                &nbsp;
+            </td>
+            <td>
+                <p><b>Donation Hotline: (520) 889-7200</b></p>
+                <p class="mt_xxs">935 W. Grant Rd, Tucson, Az 85705</p>
+                <p class=""><i>A quarter-mile east of I-10</i></p>
+            </td>
+        </tr>
+    </table>
+    <div class="mt_sm">
+        <p class="mt_xs font_lg">Your {PICKUP} for {DATE} has been <b><i>cancelled</i></b>.</p>
+        <p class="mt_xs">Name: {NAME}</p>
+        <p class="mt_xs">Company: {COMPANY}</p>
+        <p> If you did not intend to cancel this {PICKUP}, please contact our Scheduler at <a
+                href="mailto:habistore@habitattucson.org">habistore@habitattucson.org</a> or call <a
+                href="tel:+15202305323">(520)230-5323</a>. Please leave a voicemail and we will return your call within
+            one business day. </p>
+    </div>
+    <div class="mt_xl centered">
+        <p class="mt_xs">THANK YOU FOR THINKING OF HABITAT FOR HUMANITY TUCSON!</p>
+    </div>
+</body>
+
+</html>

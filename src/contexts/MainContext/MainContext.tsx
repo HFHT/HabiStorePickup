@@ -13,6 +13,7 @@ export const MainContext = createContext<MainContexType>({
         phone: '+1',
         photos: [],
         pin: undefined,
+        place: undefined,
         selected: undefined,
         settings: undefined,
         stopDetail: undefined,
@@ -53,8 +54,9 @@ export const MainContextProvider = (props: MainContextProviderType) => {
         }
     }
     useEffect(() => {
-        !showExitPrompt && setShowExitPrompt(true)
-    }, [showExitPrompt])
+        console.log('MainContext-useEffect-showExitPrompt')
+        setShowExitPrompt(true)
+    }, [])
 
     useEffect(() => {
         getZipCodes()
@@ -66,8 +68,14 @@ export const MainContextProvider = (props: MainContextProviderType) => {
             case 'reset': return { ...initialState, pin: state.pin }
             case 'back': return { ...state, page: state.page - 1 }
             case 'next': return { ...state, page: state.page + 1 }
-            case 'saveForm': return {
+            case 'saveDonor': return {
                 ...state, donor: { ...state.donor, donor: { ...action.payload } }
+            }
+            case 'saveDonation': {
+                console.log(state.donor.donations, action.payload)
+                return {
+                    ...state, donor: { ...state.donor, donations: { ...action.payload } }
+                }
             }
             case 'setDate': return { ...state, date: action.payload }
             case 'setDonation': return { ...state, donation: action.payload }
@@ -84,6 +92,7 @@ export const MainContextProvider = (props: MainContextProviderType) => {
             case 'setPhone': return { ...state, phone: action.payload }
             case 'setPhotos': return { ...state, photos: action.payload }
             case 'setPin': return { ...state, pin: action.payload }
+            case 'setPlace': return { ...state, place: action.payload }
             case 'setSettings': return { ...state, settings: action.payload }
             case 'setView': return { ...state, view: action.payload }
             case 'setZipCode': return { ...state, selected: action.payload }
@@ -119,6 +128,7 @@ const initialState: MainContextStateType = {
     phone: '+1',
     photos: [],
     pin: undefined,
+    place: undefined,
     selected: undefined,
     settings: undefined,
     stopDetail: undefined,
@@ -139,6 +149,7 @@ export type MainContextStateType = {
     phone: string | undefined,
     photos: any[],
     pin: number | string | undefined
+    place: any | undefined
     selected: {
         zip: string,
         note: string | undefined,
@@ -176,7 +187,7 @@ export type MainContexType = {
     setShowExitPrompt: Function
 }
 
-export type MainContextActions = 'reset' | 'back' | 'next' | 'saveForm' | 'setDate' | 'setDonation' | 'setDonor' | 'setDonorPlace' | 'setOnline' | 'setPhone' | 'setPhotos' | 'setPin' | 'setSettings' | 'setView' | 'setZipCode'
+export type MainContextActions = 'reset' | 'back' | 'next' | 'saveDonor' | 'saveDonation' | 'setDate' | 'setDonation' | 'setDonor' | 'setDonorPlace' | 'setOnline' | 'setPhone' | 'setPhotos' | 'setPin' | 'setPlace' | 'setSettings' | 'setView' | 'setZipCode'
 
 export type SettingsType = {
     site: SiteSettingsType | undefined

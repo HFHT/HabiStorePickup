@@ -103,7 +103,8 @@ export type SchedulerDonorPlaceType = {
 export type SchedulerDonationType = {
     _id: number | undefined
     _donorKey: string | undefined
-    date: string
+    createDate: string
+    schedDate: string
     driverNote: string
     note: string
     source: 'scheduler'

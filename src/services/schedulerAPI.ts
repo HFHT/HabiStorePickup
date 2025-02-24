@@ -9,7 +9,7 @@ type SchedulerAPICmdsType = {
     cmd: 'addPickup',
     route?: string | undefined,
     jsonValue?: any
-    //addPickup - {_id: phone, new: boolean, constituent, donation, schedDate: YYYY-MM-DD, note: string, source: 'donor' }
+    //addPickup - {_id: phone, constituent, donation, schedDate: YYYY-MM-DD, note: string, source: 'donor' }
 }
 export async function schedulerAPI(props: SchedulerAPIType) {
     console.log(props)

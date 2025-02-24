@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 export function usePhoneLookup() {
     const { setIsBusy, state, dispatch } = useContext(MainContext)
     const [phone, setThePhone] = useState(state.phone ? state.phone : '')
-    const [constituent, setConstituent] = useState(undefined)
+    const [constituent, setConstituent] = useState<any>(undefined)
 
     useEffect(() => {
         if (!state || !state.phone) return
@@ -23,5 +23,5 @@ export function usePhoneLookup() {
         }
         setThePhone(p)
     }
-    return { phone, setPhone, state, dispatch }
+    return { phone, setPhone, state, dispatch, constituent }
 }

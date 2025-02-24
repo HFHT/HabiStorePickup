@@ -11,8 +11,9 @@ export function ThankYou({ open }: { open: boolean }) {
     const { email, print, isBusy } = usePrint_Email()
     const { state, uuid, templates, setShowExitPrompt } = useContext(MainContext)
     useEffect(() => {
-        setShowExitPrompt(false)
-    }, [])
+        console.log('ThankYou-useEffect', open)
+        open && setShowExitPrompt(false)
+    }, [open])
 
     if (!open || !state || !state.selected || !state.donation || !state.donor || !state.donor.donor) return <></>
     const templateFields = (type: 'print' | 'email') => {
@@ -100,6 +101,7 @@ export function ThankYou({ open }: { open: boolean }) {
                 </Group>
                 <Divider mt='lg' mb='lg' />
                 <AddToCalendar name={'HabiStore donation pickup'} buttonsList={!mobile} description={templates && templates.find((tf) => tf._id === 'storePickupIcalNote')} date={state.selected.date} />
+                <Button mt='lg' onClick={() => location.reload()}>Done</Button>
             </Stack >
 
         </>

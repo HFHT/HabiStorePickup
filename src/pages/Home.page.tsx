@@ -1,4 +1,4 @@
-import { AcceptableItems, ConstituentLookup, ContactInfo, Items, Photos, SelectZipCode, ThankYou } from '@/components';
+import { AcceptableItems, Confirmation, ConstituentLookup, ContactInfo, Items, Photos, SelectZipCode, ThankYou } from '@/components';
 import { MainContext } from '@/contexts';
 import { Box, Flex, Grid } from '@mantine/core';
 import { useContext } from 'react';
@@ -22,7 +22,8 @@ export function HomePage({ open }: HomePageType) {
             <Photos open={state.page === 3} />
             <ConstituentLookup open={state.page === 4} />
             <ContactInfo open={state.page === 5} />
-            <ThankYou open={state.page === 6} />
+            <Confirmation open={state.page === 6} />
+            <ThankYou open={state.page === 7} />
           </Flex>
         </Grid>
       </Box>
