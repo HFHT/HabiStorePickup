@@ -47,14 +47,14 @@ export async function getConstituent(request: HttpRequest, context: InvocationCo
         } else {
             retVal = { appts: [], donor: donorInitialValue, donations: [] }
         }
-        client.close()
+        await client.close()
         return {
             status: 200,
             body: JSON.stringify({ ...retVal })
         }
     } catch (error) {
         context.error(error)
-        client.close()
+        await client.close()
         return { body: JSON.stringify({ err: true, error: error }), status: 310 }
     }
 };

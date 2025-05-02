@@ -1,3 +1,4 @@
+// DEPRECATED
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 // const OpenAI = require("openai");
 import OpenAI from 'openai'

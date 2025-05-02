@@ -39,7 +39,7 @@ export async function getZipAvailability(request: HttpRequest, context: Invocati
         ])
     } catch (error) {
         context.error(error)
-        client.close()
+        await client.close()
         return { body: JSON.stringify({ err: true, error: error }), status: 310 }
     }
     let routes: SettingsRoutes = dbResponse[0][0]
@@ -102,7 +102,7 @@ export async function getZipAvailability(request: HttpRequest, context: Invocati
     })
     const items = await client.db('Scheduler').collection('Settings').find({ _id: 'notAccepted' }).toArray()
     const templates = await client.db('Habitat').collection('Templates').find({ _id: { $in: ['storePickupConfirmation', 'storePickupEmailConfirmation', 'storePickupIcalNote', 'storeOpenAIItemPrompt'] } }).toArray()
-    client.close()
+    await client.close()
     return { body: JSON.stringify({ zip: [...zipAvailability], notAccepted: [...items[0].items], templates: [...templates] }) }
 };
 

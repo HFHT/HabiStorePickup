@@ -1,3 +1,5 @@
+// NOT USED
+
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 
 const { StorageSharedKeyCredential, generateBlobSASQueryParameters, ContainerSASPermissions } = require('@azure/storage-blob');

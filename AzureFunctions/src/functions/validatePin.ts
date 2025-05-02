@@ -1,3 +1,5 @@
+// NOT USED
+
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { MongoClient } from "mongodb";
 import { fetchApptsForDay } from "../utils";
@@ -47,7 +49,7 @@ export async function validatePin(request: HttpRequest, context: InvocationConte
         if (isUserValid.valid && theDate) {
             retVal = await fetchApptsForDay(theDate, client, context)
         }
-        client.close()
+        await client.close()
         return {
             status: 200,
             body: JSON.stringify({
@@ -59,7 +61,7 @@ export async function validatePin(request: HttpRequest, context: InvocationConte
         }
     } catch (error) {
         context.error(error)
-        client.close()
+        await client.close()
         return {
             status: 310,
             body: JSON.stringify({ err: true, error: error })

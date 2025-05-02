@@ -1,3 +1,5 @@
+// NOT USED
+
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 
 export async function getSASkey(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {

@@ -1,3 +1,5 @@
+// NOT USED
+
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import { fetchApptsForDay, queryGet } from "../utils";
 var MongoClient = require('mongodb').MongoClient;
@@ -28,14 +30,14 @@ export async function getApptsForDay(request: HttpRequest, context: InvocationCo
         //         client.close()
         //         return { body: JSON.stringify({ err: true, error: error }), status: 311 }
         //     }
-        client.close()
+        await client.close()
         return {
             status: 200,
             body: JSON.stringify({ ...retVal })
         }
     } catch (error) {
         context.error(error)
-        client.close()
+        await client.close()
         return { body: JSON.stringify({ err: true, error: error }), status: 310 }
     }
 };
