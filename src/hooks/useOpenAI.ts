@@ -31,9 +31,11 @@ export function useOpenAI() {
         if (!userData || !templates) return;
         let template = templates.find((tf) => tf._id === 'storeOpenAIItemPrompt')
         if (!template) return
+        const cleanedDonations = userData.replace(/[\x00-\x1F\x7F]/g, ' ');
+        console.log(cleanedDonations)
         let jsonString = JSON.stringify(template.jsonValue)
         console.log(jsonString)
-        jsonString = jsonString.replace(new RegExp('{ITEMS}', 'g'), userData);
+        jsonString = jsonString.replace(new RegExp('{ITEMS}', 'g'), cleanedDonations);
         console.log(JSON.parse(jsonString))
         setIsBusy(true)
         try {
