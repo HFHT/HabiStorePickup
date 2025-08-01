@@ -48,7 +48,13 @@ export function useConstituent() {
         validate: {
             firstName: (value) => (value === null || value === '' ? 'First name required' : null),
             lastName: (value) => (value === null || value === '' ? 'Last name required' : null),
-            email: (value) => ((value === '' || isEmail(value)) ? null : 'Invalid email'),
+            // email: (value) => ((value === '' || isEmail(value)) ? null : 'Invalid email'),
+            email: (value) => {
+                if (value === '' || value === null) return 'Email is required'
+                if (isEmail(value)) return null
+                return 'Invalid email'
+            },
+
             phone: (value) => (isPhone(value) ? null : 'Invalid phone'),
             zip: (value) => (isZip(value) ? 'Zip must have 5 characters' : null),
             address: (value) => (value === null || value === '' ? 'Address required' : null)

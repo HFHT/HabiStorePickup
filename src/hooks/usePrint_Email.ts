@@ -23,6 +23,7 @@ export function usePrint_Email() {
 
     const email = async (emailDocument: { _id: string, template: string } | undefined, itemList: { qty: number | string, prod: string }[], imageList: ImagesType[], replace: any, to_subject: { to: string, subject: string }) => {
         if (!emailDocument) return
+        notifications.show({ color: 'green', title: 'Sending confirmation email...', message: '', autoClose: 10000 })
         const emailOutput = formFill(emailDocument.template, itemList, imageList, replace, sasToken)
         setIsBusy(true)
         const confirmation = await sendEmailHTML({ ...to_subject, content: emailOutput })

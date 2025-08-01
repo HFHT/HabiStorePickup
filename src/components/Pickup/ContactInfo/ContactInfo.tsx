@@ -93,7 +93,7 @@ export function ContactInfo({ open }: { open: boolean }) {
             </Grid>
             <Grid grow justify="space-between" align="center" >
               <Grid.Col span={7}>
-                <TextInput label="Email" size='sm' placeholder="Email"
+                <TextInput label="Email" size='sm' placeholder="Email" withAsterisk
                   key={form.key('email')}
                   {...form.getInputProps('email')}
                 />
